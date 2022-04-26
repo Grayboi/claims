@@ -51,5 +51,36 @@
             padding: 0;
         }
     </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script>
+        const ws = new WebSocket('wss://fork-scratch-mist.glitch.me/', {
+            headers: {
+                "User-Agent": "beans"
+            }
+        })
+        ws.onopen = () => {
+            console.log('ready')
+            ws.send('Good morning,\n   Red bird!')
+        }
+        function randomQuestion(table){
+            occupied = []
+            table.forEach(a=>{
+                if(!occupied.includes(a)){
+                    occupied.push(a)
+                }else{
+                    randomQuestion(table)
+                }
+            })
+            return occupied
+        }
+        function randomQuestionOrderFromArray(table){
+            return randomQuestion(table)
+        }
+        $.getJSON('questions.json', (dat)=>{
+            console.log(dat[Object.keys(dat)[Math.floor(Math.random() * Object.keys(dat).length)]])
+            console.log(Math.floor(Math.random() * Object.keys(dat).length))
+            console.log(Object.keys(dat).length)
+        })
+    </script>
 </body>
 </html>
