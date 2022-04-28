@@ -1,10 +1,26 @@
 {
-    "A": ["B", "C", "D", "E"],
-    "b": ["B", "C", "D", "E"],
-    "c": ["B", "C", "D", "E"],
-    "d": ["B", "C", "D", "E"],
-    "e": ["B", "C", "D", "E"],
-    "f": ["B", "C", "D", "E"],
-    "g": ["B", "C", "D", "E"]
-
+ "I do not like broccoli.": [
+     "Claim"
+ ],
+ "Dogs are better than cats.": [
+     "Claim"
+ ],
+ "Bread contains water.": [
+     "Evidence"
+ ],
+ "Summer sausage doesn't need to be refrigerated before opened.": [
+     "Evidence"
+ ],
+ "Pickles are cucumbers in vinegar.": [
+     "Evidence"
+ ],
+ "Spongebob is the best TV show in the world.": [
+     "Claim"
+ ],
+ "Geckos are fun.": [
+     "Claim"
+ ],
+ "Red apples are better than green apples.": [
+     "Claim"
+ ]
 }

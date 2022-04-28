@@ -10,15 +10,21 @@
     <div id="questioncontainer">
         <p id="q">broccoli</p>
     </div>
+    <div id="streakdiv">
+        <p id="streak">Streak: 0</p>
+    </div>
     <div id="buttons">
-        <button id="topleft" class="button">option 1</button>
-        <button id="topright" class="button">option 2</button>
-        <button id="bottomleft" class="button">option 3</button>
-        <button id="bottomright" class="button">option 4</button>
+        <button id="claim" class="button">Claim</button>
+        <button id="evidence" class="button">Evidence</button>
     </div>
     <style>
-        #q {
+        #streak {
             font-size: 10vmin;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            text-align: center;
+        }
+        #q {
+            font-size: 5vmin;
             font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
             
         }
@@ -29,13 +35,15 @@
             margin: auto;
             position: sticky;
             width: 90vmin;
-            height: 40vmax;
+            height: 20vmax;
             top: 4vmax;
         }
         #buttons {
             position: absolute;
             bottom: 2vmax;
             text-align: center;
+            margin: auto;
+            width: 100vw;
         }
         .button {
             width: 45vmin;
@@ -53,34 +61,40 @@
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script>
-        const ws = new WebSocket('wss://fork-scratch-mist.glitch.me/', {
-            headers: {
-                "User-Agent": "beans"
-            }
-        })
-        ws.onopen = () => {
-            console.log('ready')
-            ws.send('Good morning,\n   Red bird!')
+        keys = []
+        cqa = ""
+        function randomQuestion(){
+            console.log(keys)
+            index = Math.floor(Math.random() * keys.length)
+            cqa = answers[index]
+            return keys[index]
         }
-        function randomQuestion(table){
-            occupied = []
-            table.forEach(a=>{
-                if(!occupied.includes(a)){
-                    occupied.push(a)
-                }else{
-                    randomQuestion(table)
-                }
-            })
-            return occupied
-        }
-        function randomQuestionOrderFromArray(table){
-            return randomQuestion(table)
+        function displayQuestion(){
+            document.getElementById('q').innerHTML = randomQuestion()
         }
         $.getJSON('questions.json', (dat)=>{
-            console.log(dat[Object.keys(dat)[Math.floor(Math.random() * Object.keys(dat).length)]])
-            console.log(Math.floor(Math.random() * Object.keys(dat).length))
-            console.log(Object.keys(dat).length)
+            keys = Object.keys(dat)
+            answers = Object.values(dat)
+            //console.log(Object.keys(dat)[Math.floor(Math.random() * Object.keys(dat).length)])
+            displayQuestion()
         })
+        document.getElementById('claim').addEventListener('click', ()=>{
+            console.log(document.getElementById('streak').innerHTML.split(' ')[1])
+            console.log(parseInt(document.getElementById('streak').innerHTML.split(' ')[1])+1)
+            if(cqa == "Claim"){
+                document.getElementById('streak').innerHTML = "Streak: "+parseInt(document.getElementById('streak').innerHTML.split(' ')[1])+1
+            }else{
+                document.getElementById('streak').innerHTML = "Streak: 0"
+            }
+        })
+        document.getElementById('evidence').addEventListener('click', ()=>{
+            if(cqa == "Evidence"){
+                document.getElementById('streak').innerHTML = "Streak: "+parseInt(document.getElementById('streak').innerHTML.split(' ')[1])+1
+            }else{
+                document.getElementById('streak').innerHTML = "Streak: 0"
+            }
+        })
+        
     </script>
 </body>
 </html>
